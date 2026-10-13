@@ -1,0 +1,349 @@
+STEP 3 - SAVED ID-MISMATCH-REPAIRED DATASET VALIDATION
+Status: ALL REQUIRED CHECKS PASS
+The saved repaired CSV was read back from disk and explicitly supplied to the unchanged Step 2 validate() function.
+No in-memory loader substitution was used for this saved-file validation.
+Run UTC: 2026-10-13T00:11:16+00:00
+
+OUTPUT FILES
+Repaired dataset: data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv
+Change log: reports/data_cleaning/03_repair/03_id_mismatch_change_log.csv
+Validation evidence: reports/data_cleaning/03_repair/03_id_mismatch_repair_validation_summary.txt
+
+PATH REFERENCES
+All file paths are relative to the group repository root; "." means that root.
+The sibling source dataset is referenced as ../chemixhub/datasets/drug-solubility/.
+Only paths in these two reports were sanitized; original input and repaired-dataset SHA256 values are unchanged.
+The change-log SHA256 below was recalculated after its path keys were edited.
+The validation timestamps and findings below retain the saved-file validation evidence.
+
+REQUIRED RESULTS
+Saved repaired CSV records: 27,166
+Original processed CSV structural errors: 453 (SOLVENT_LENGTH_MISMATCH)
+Saved repaired CSV SOLVENT_LENGTH_MISMATCH findings: 0
+Saved repaired CSV total structural errors: 0
+Records changed relative to original processed CSV: 453
+Only changed column: cmp_ids_solvent
+Unaffected records preserved exactly: 26,713
+All other CSV cell values, column order, and record order: preserved
+Change-log entries: 453; one-to-one correspondence with the changed records: PASS
+Solvent 1 zero: 20; solvent 2 zero: 433
+Additional changes on second repair pass (memory only): 0
+Duplicate-candidate records removed: 0
+Repeated-condition groups: 9; raw candidate records: 18; original candidate listing: preserved
+Original input files, existing scripts, tests, and prior validation reports: unchanged
+No fractions, solubility values, temperatures, drug information, property/unit labels, or chemical structures were modified.
+No renormalization, logarithm conversion, or duplicate removal was performed.
+
+CHANGE-LOG INTERPRETATION
+data_row = 1 means the first CSV record after the header; raw_label is a separate source identifier.
+The existing log uses a structured reason rather than a separate prose reason column:
+zero_solvent_position identifies the raw solvent slot with an exactly zero composition whose fraction was dropped upstream while its ID remained.
+Removing that slot's ID restores its association with the existing nonzero fraction, while preserving the positive-composition solvent.
+before/after identify the original/repaired ID lists; comp_1/comp_2 and SMILES_1/SMILES_2 identify the raw components.
+cmp_mole_fractions_solvent contains the unchanged fraction cell; input_sha256 identifies the exact inputs.
+
+REMAINING UNRESOLVED REVIEW ITEMS
+UNIT_SOURCE_REVIEW: Observed unit labels: ['g/L']. Logarithm/concentration definitions require source review; no conversion performed. Croissant description: Dataset of drug solubility values (e.g., g/100g solvent) measured in various binary or ternary solvent mixtures at different temperatures.
+REPEATED_CONDITIONS_REVIEW: 9 groups / 18 raw rows share drug, temperature, and nonzero solvent composition. Review, do not auto-delete.
+Chemical structure validity and experimental truth are outside these checks; no chemical-structure correction was performed.
+
+OUTPUT SHA256
+data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv: 71ec314554c3350d3559a14d37f92e3a47263524487dc6e17556d62683ef85d5
+reports/data_cleaning/03_repair/03_id_mismatch_change_log.csv: 4db9bd0cbc96e401d9f723738ddb326b7715c206b719dc04020cf016ae466620
+
+PROTECTED FILE SHA256 BEFORE AND AFTER
+Projectv1.py
+  before: 671bd2dedd873883af5b1ab1dc3ca23c04ae7080983929a657af777cd93815bb
+  after:  671bd2dedd873883af5b1ab1dc3ca23c04ae7080983929a657af777cd93815bb
+  unchanged: YES
+python scripts/01_data_inspection.py
+  before: 2aab75b0375aa06f904d6e458d7144090786ebbb9edea5c415e6d73e626d072e
+  after:  2aab75b0375aa06f904d6e458d7144090786ebbb9edea5c415e6d73e626d072e
+  unchanged: YES
+python scripts/02_validate_values.py
+  before: e55eac86655c926d3fe411af0be33526873f214b1478abbc00d39657b3ccacc5
+  after:  e55eac86655c926d3fe411af0be33526873f214b1478abbc00d39657b3ccacc5
+  unchanged: YES
+python scripts/03_repair_solvent_pairs.py
+  before: b99568d1f4d530268ad752aff295d9d14343952b0c17ce7eb4bc69997928a27b
+  after:  b99568d1f4d530268ad752aff295d9d14343952b0c17ce7eb4bc69997928a27b
+  unchanged: YES
+reports/data_cleaning/01_compounds_column_report.csv
+  before: 66a0bbdea66193857ede01885b4a41cd09bb31d3cee914c587fb7ba6b376334c
+  after:  66a0bbdea66193857ede01885b4a41cd09bb31d3cee914c587fb7ba6b376334c
+  unchanged: YES
+reports/data_cleaning/01_solubility_column_report.csv
+  before: 1024adea8e181007bcc1b1efc79426e006827b4484b349f17f7f09faa11dfe01
+  after:  1024adea8e181007bcc1b1efc79426e006827b4484b349f17f7f09faa11dfe01
+  unchanged: YES
+reports/data_cleaning/02_validation/02_duplicate_candidates.csv
+  before: 18df56bf47b6e25b7b2fcf5b7af3648c0cd0308f740583b99d6600a02035674b
+  after:  18df56bf47b6e25b7b2fcf5b7af3648c0cd0308f740583b99d6600a02035674b
+  unchanged: YES
+reports/data_cleaning/02_validation/02_validation_issues.csv
+  before: 7bb1cd0d334e02f9c5f3c41de24faa9aae49718fea73880f32f4004df7030d5f
+  after:  7bb1cd0d334e02f9c5f3c41de24faa9aae49718fea73880f32f4004df7030d5f
+  unchanged: YES
+reports/data_cleaning/02_validation/02_validation_summary.txt
+  before: 3d9833e99d444dc9a3269bd983abd3eba88c946cd2b8c87ac5952a83c50b6386
+  after:  3d9833e99d444dc9a3269bd983abd3eba88c946cd2b8c87ac5952a83c50b6386
+  unchanged: YES
+tests/test_repair_solvent_pairs.py
+  before: 7bdeeac52cb400a40a8b39d0ebcbde5845772dbd6f7011f4dd4dfb16959fe827
+  after:  7bdeeac52cb400a40a8b39d0ebcbde5845772dbd6f7011f4dd4dfb16959fe827
+  unchanged: YES
+../chemixhub/datasets/drug-solubility/processed_data/compounds.csv
+  before: c0b9ee8687d476f88f4fdef25200bbe57c94bad0fb5fe480a5ad8f11ae71371c
+  after:  c0b9ee8687d476f88f4fdef25200bbe57c94bad0fb5fe480a5ad8f11ae71371c
+  unchanged: YES
+../chemixhub/datasets/drug-solubility/processed_data/croissant.json
+  before: a6638dca8ac56c9fc288c4114d0ce588cb2e1622324059d23460ccb561dd988f
+  after:  a6638dca8ac56c9fc288c4114d0ce588cb2e1622324059d23460ccb561dd988f
+  unchanged: YES
+../chemixhub/datasets/drug-solubility/processed_data/data_processing.py
+  before: 938f1a604477dcde28ddcc720bbe1b0cfdd03f619d28b182a30bf4d231aa7b17
+  after:  938f1a604477dcde28ddcc720bbe1b0cfdd03f619d28b182a30bf4d231aa7b17
+  unchanged: YES
+../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_0.safetensors
+  before: ac286fb62a094b96f65b5483035129d4724959a40123c7888bcb927de26af4f3
+  after:  ac286fb62a094b96f65b5483035129d4724959a40123c7888bcb927de26af4f3
+  unchanged: YES
+../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_1.safetensors
+  before: 2154642a67d12e7299b9572f10224bef3e2d4564a6d57c5a171211bd6f7c1ef9
+  after:  2154642a67d12e7299b9572f10224bef3e2d4564a6d57c5a171211bd6f7c1ef9
+  unchanged: YES
+../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_2.safetensors
+  before: e366bdfb9a72520c934022361a5c5e1c1832689f5003c460252df07c287cd85f
+  after:  e366bdfb9a72520c934022361a5c5e1c1832689f5003c460252df07c287cd85f
+  unchanged: YES
+../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_3.safetensors
+  before: 498f9cfde2eb3978aebe719498f1063798a695e6a8f7f2063e270e5333d72cc3
+  after:  498f9cfde2eb3978aebe719498f1063798a695e6a8f7f2063e270e5333d72cc3
+  unchanged: YES
+../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_4.safetensors
+  before: a1609141f4d869eddbc012a1049e49b702baecb7566a8453e8f82e4fbafb67eb
+  after:  a1609141f4d869eddbc012a1049e49b702baecb7566a8453e8f82e4fbafb67eb
+  unchanged: YES
+../chemixhub/datasets/drug-solubility/processed_data/processed_DrugSolubilityData.csv
+  before: 8c3f44a5f3a688b65c89498c68928bdaa418cd975641ba1d1902a4cd636eb892
+  after:  8c3f44a5f3a688b65c89498c68928bdaa418cd975641ba1d1902a4cd636eb892
+  unchanged: YES
+../chemixhub/datasets/drug-solubility/raw_data/DrugSolubilityData.csv
+  before: 25a2a4f8fbff3ed4d3a8c7df6f2d788efeaf8e893ea82917ce3cef0edcf2482b
+  after:  25a2a4f8fbff3ed4d3a8c7df6f2d788efeaf8e893ea82917ce3cef0edcf2482b
+  unchanged: YES
+
+ORIGINAL DATASET VALIDATION (UNCHANGED FILE ON DISK)
+STEP 2 - DRUG SOLUBILITY VALIDATION
+Mode: read-only (no source data changed)
+Raw records: 27,166
+Processed records: 27,166
+Compound records: 169
+Unchanged target values: 27,166 / 27,166
+Unchanged temperatures: 27,166 / 27,166
+Solvent ID/fraction length mismatches: 453
+Repeated-condition candidate groups: 9
+Rows in those groups: 18
+Structural error findings: 453
+Human-review items: 2
+Status: ACTION REQUIRED
+
+ERROR COUNTS
+SOLVENT_LENGTH_MISMATCH: 453
+
+HUMAN REVIEW (not resolved automatically)
+UNIT_SOURCE_REVIEW: Observed unit labels: ['g/L']. Logarithm/concentration definitions require source review; no conversion performed. Croissant description: Dataset of drug solubility values (e.g., g/100g solvent) measured in various binary or ternary solvent mixtures at different temperatures.
+REPEATED_CONDITIONS_REVIEW: 9 groups / 18 raw rows share drug, temperature, and nonzero solvent composition. Review, do not auto-delete.
+
+METHOD
+data_row = 1 means the first CSV record after the header; raw_label is separate.
+Raw/processed comparisons use input order, with target, temperature and pair checks.
+A comparison failure does not distinguish reordered rows from corrupted values.
+Fraction sum absolute tolerance: 1e-06; relative tolerance: 0.
+Raw/processed pair tolerance: 1e-12; target/temperature comparison: exact.
+Candidate groups use exact numeric conditions from raw records, ignoring zero components.
+Known IDs are checked; chemical structure validity and experimental truth are not.
+No logarithm, renormalization, unit correction, repair, or deduplication is performed.
+
+Python: 3.14.7
+Run UTC: 2026-10-13T00:11:13+00:00
+INPUT SHA256 (identifies the exact input copies)
+DrugSolubilityData.csv: 25a2a4f8fbff3ed4d3a8c7df6f2d788efeaf8e893ea82917ce3cef0edcf2482b
+processed_DrugSolubilityData.csv: 8c3f44a5f3a688b65c89498c68928bdaa418cd975641ba1d1902a4cd636eb892
+compounds.csv: c0b9ee8687d476f88f4fdef25200bbe57c94bad0fb5fe480a5ad8f11ae71371c
+croissant.json: a6638dca8ac56c9fc288c4114d0ce588cb2e1622324059d23460ccb561dd988f
+
+SAVED REPAIRED DATASET VALIDATION (EXPLICIT FILE ON DISK)
+STEP 2 - DRUG SOLUBILITY VALIDATION
+Mode: read-only (no source data changed)
+Raw records: 27,166
+Processed records: 27,166
+Compound records: 169
+Unchanged target values: 27,166 / 27,166
+Unchanged temperatures: 27,166 / 27,166
+Solvent ID/fraction length mismatches: 0
+Repeated-condition candidate groups: 9
+Rows in those groups: 18
+Structural error findings: 0
+Human-review items: 2
+Status: STRUCTURAL CHECKS PASS; SOURCE REVIEW STILL REQUIRED
+
+ERROR COUNTS
+None
+
+HUMAN REVIEW (not resolved automatically)
+UNIT_SOURCE_REVIEW: Observed unit labels: ['g/L']. Logarithm/concentration definitions require source review; no conversion performed. Croissant description: Dataset of drug solubility values (e.g., g/100g solvent) measured in various binary or ternary solvent mixtures at different temperatures.
+REPEATED_CONDITIONS_REVIEW: 9 groups / 18 raw rows share drug, temperature, and nonzero solvent composition. Review, do not auto-delete.
+
+METHOD
+data_row = 1 means the first CSV record after the header; raw_label is separate.
+Raw/processed comparisons use input order, with target, temperature and pair checks.
+A comparison failure does not distinguish reordered rows from corrupted values.
+Fraction sum absolute tolerance: 1e-06; relative tolerance: 0.
+Raw/processed pair tolerance: 1e-12; target/temperature comparison: exact.
+Candidate groups use exact numeric conditions from raw records, ignoring zero components.
+Known IDs are checked; chemical structure validity and experimental truth are not.
+No logarithm, renormalization, unit correction, repair, or deduplication is performed.
+
+Python: 3.14.7
+Run UTC: 2026-10-13T00:11:14+00:00
+INPUT SHA256 (identifies the exact input copies)
+DrugSolubilityData.csv: 25a2a4f8fbff3ed4d3a8c7df6f2d788efeaf8e893ea82917ce3cef0edcf2482b
+id_mismatch_repaired_DrugSolubilityData.csv: 71ec314554c3350d3559a14d37f92e3a47263524487dc6e17556d62683ef85d5
+compounds.csv: c0b9ee8687d476f88f4fdef25200bbe57c94bad0fb5fe480a5ad8f11ae71371c
+croissant.json: a6638dca8ac56c9fc288c4114d0ce588cb2e1622324059d23460ccb561dd988f
+
+EXACT CLI COMMANDS USED
+Working directory: .
+py -B "python scripts/03_repair_solvent_pairs.py" --help
+py -B "python scripts/03_repair_solvent_pairs.py" --dataset-dir "../chemixhub/datasets/drug-solubility" --output-csv "data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv" --change-log "reports/data_cleaning/03_repair/03_id_mismatch_change_log.csv"
+py -B "python scripts/03_repair_solvent_pairs.py" --dataset-dir "../chemixhub/datasets/drug-solubility" --processed-input "data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv" --dry-run
+
+The last CLI command's 'ORIGINAL DATA VALIDATION' label refers to its selected --processed-input, which was the saved repaired file.
+It reported zero disk-input structural errors. The separate original upstream CSV still has 453 errors.
+
+PORTABLE READ-ONLY ROW / LOG / HASH VERIFICATION COMMAND
+Run from the group repository root with the sibling source dataset available.
+The historical save command above refuses existing outputs. The command below checks the existing files without saving or overwriting anything.
+Report hash keys use repository-relative paths; their original SHA256 values are preserved.
+@'
+import json, hashlib, os, runpy
+from collections import Counter
+from pathlib import Path
+
+baseline = {"Projectv1.py":"671bd2dedd873883af5b1ab1dc3ca23c04ae7080983929a657af777cd93815bb","python scripts/01_data_inspection.py":"2aab75b0375aa06f904d6e458d7144090786ebbb9edea5c415e6d73e626d072e","python scripts/02_validate_values.py":"e55eac86655c926d3fe411af0be33526873f214b1478abbc00d39657b3ccacc5","python scripts/03_repair_solvent_pairs.py":"b99568d1f4d530268ad752aff295d9d14343952b0c17ce7eb4bc69997928a27b","reports/data_cleaning/01_compounds_column_report.csv":"66a0bbdea66193857ede01885b4a41cd09bb31d3cee914c587fb7ba6b376334c","reports/data_cleaning/01_solubility_column_report.csv":"1024adea8e181007bcc1b1efc79426e006827b4484b349f17f7f09faa11dfe01","reports/data_cleaning/02_validation/02_duplicate_candidates.csv":"18df56bf47b6e25b7b2fcf5b7af3648c0cd0308f740583b99d6600a02035674b","reports/data_cleaning/02_validation/02_validation_issues.csv":"7bb1cd0d334e02f9c5f3c41de24faa9aae49718fea73880f32f4004df7030d5f","reports/data_cleaning/02_validation/02_validation_summary.txt":"3d9833e99d444dc9a3269bd983abd3eba88c946cd2b8c87ac5952a83c50b6386","tests/test_repair_solvent_pairs.py":"7bdeeac52cb400a40a8b39d0ebcbde5845772dbd6f7011f4dd4dfb16959fe827","../chemixhub/datasets/drug-solubility/processed_data/compounds.csv":"c0b9ee8687d476f88f4fdef25200bbe57c94bad0fb5fe480a5ad8f11ae71371c","../chemixhub/datasets/drug-solubility/processed_data/croissant.json":"a6638dca8ac56c9fc288c4114d0ce588cb2e1622324059d23460ccb561dd988f","../chemixhub/datasets/drug-solubility/processed_data/data_processing.py":"938f1a604477dcde28ddcc720bbe1b0cfdd03f619d28b182a30bf4d231aa7b17","../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_0.safetensors":"ac286fb62a094b96f65b5483035129d4724959a40123c7888bcb927de26af4f3","../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_1.safetensors":"2154642a67d12e7299b9572f10224bef3e2d4564a6d57c5a171211bd6f7c1ef9","../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_2.safetensors":"e366bdfb9a72520c934022361a5c5e1c1832689f5003c460252df07c287cd85f","../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_3.safetensors":"498f9cfde2eb3978aebe719498f1063798a695e6a8f7f2063e270e5333d72cc3","../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_4.safetensors":"a1609141f4d869eddbc012a1049e49b702baecb7566a8453e8f82e4fbafb67eb","../chemixhub/datasets/drug-solubility/processed_data/processed_DrugSolubilityData.csv":"8c3f44a5f3a688b65c89498c68928bdaa418cd975641ba1d1902a4cd636eb892","../chemixhub/datasets/drug-solubility/raw_data/DrugSolubilityData.csv":"25a2a4f8fbff3ed4d3a8c7df6f2d788efeaf8e893ea82917ce3cef0edcf2482b"}
+cli_commands = ["py -B \"python scripts/03_repair_solvent_pairs.py\" --help","py -B \"python scripts/03_repair_solvent_pairs.py\" --dataset-dir \"../chemixhub/datasets/drug-solubility\" --output-csv \"data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv\" --change-log \"reports/data_cleaning/03_repair/03_id_mismatch_change_log.csv\"","py -B \"python scripts/03_repair_solvent_pairs.py\" --dataset-dir \"../chemixhub/datasets/drug-solubility\" --processed-input \"data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv\" --dry-run"]
+
+def require(condition, message):
+    if not condition:
+        raise SystemExit("STOP: " + message)
+
+def sha256(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+repo = Path.cwd().resolve()
+
+def repository_relative(path):
+    return Path(os.path.relpath(Path(path).resolve(), repo)).as_posix()
+
+source = repo.parent / "chemixhub/datasets/drug-solubility"
+raw_path = source / "raw_data/DrugSolubilityData.csv"
+original_path = source / "processed_data/processed_DrugSolubilityData.csv"
+compounds_path = source / "processed_data/compounds.csv"
+metadata_path = source / "processed_data/croissant.json"
+saved_path = repo / "data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv"
+log_path = repo / "reports/data_cleaning/03_repair/03_id_mismatch_change_log.csv"
+summary_path = repo / "reports/data_cleaning/03_repair/03_id_mismatch_repair_validation_summary.txt"
+repair_path = repo / "python scripts/03_repair_solvent_pairs.py"
+validator_path = repo / "python scripts/02_validate_values.py"
+require(all(sha256(Path(p)) == digest for p, digest in baseline.items()), "A protected file changed before the disk audit")
+saved_hash_before, log_hash_before = sha256(saved_path), sha256(log_path)
+require(saved_hash_before == "71ec314554c3350d3559a14d37f92e3a47263524487dc6e17556d62683ef85d5", "Repaired dataset SHA256 differs")
+require(log_hash_before == "4db9bd0cbc96e401d9f723738ddb326b7715c206b719dc04020cf016ae466620", "Sanitized change-log SHA256 differs")
+repair = runpy.run_path(str(repair_path))
+validator = runpy.run_path(str(validator_path))
+raw = repair["load_table"](raw_path, repair["RAW_REQUIRED"])
+original = repair["load_table"](original_path, repair["PROCESSED_REQUIRED"])
+saved = repair["load_table"](saved_path, repair["PROCESSED_REQUIRED"])
+compounds = repair["load_table"](compounds_path, {"compound_id", "smiles"})
+log = repair["load_table"](log_path, set(repair["LOG_FIELDS"]))
+require(len(raw.rows) == len(original.rows) == len(saved.rows) == 27166, "Record count differs from 27,166")
+require(original.header == saved.header, "Saved CSV header/column order changed")
+
+print("Validating ORIGINAL disk file:", repository_relative(original_path))
+original_summary, original_issues, original_candidates = validator["validate"](
+    raw_path, original_path, compounds_path, metadata_path, 1e-6)
+print("Validating SAVED REPAIRED file read from disk:", repository_relative(saved_path))
+saved_summary, saved_issues, saved_candidates = validator["validate"](
+    raw_path, saved_path, compounds_path, metadata_path, 1e-6)
+original_errors = Counter(i["check"] for i in original_issues if i["severity"] == "ERROR")
+saved_errors = Counter(i["check"] for i in saved_issues if i["severity"] == "ERROR")
+require(original_errors == {"SOLVENT_LENGTH_MISMATCH": 453}, "Original errors differ from approved scope")
+require(not saved_errors, "Saved repaired CSV still has structural errors")
+
+changed = {}
+for row_n, (before, after) in enumerate(zip(original.rows, saved.rows), 1):
+    differing = {key for key in original.header if before[key] != after[key]}
+    if differing:
+        require(differing == {"cmp_ids_solvent"}, f"Unexpected changed column at data row {row_n}")
+        changed[row_n] = (before["cmp_ids_solvent"], after["cmp_ids_solvent"])
+require(len(changed) == 453, "Changed record count differs from 453")
+require(set(changed) == {int(i["data_row"]) for i in original_issues if i["severity"] == "ERROR"},
+        "Changed rows do not match original mismatch findings")
+
+# Reconstruct expected changes from contents, without hard-coded record positions.
+expected = repair["repair_rows"](raw.rows, original.rows, compounds.rows)
+require(expected.rows == saved.rows, "Saved rows differ from the tested repair method")
+expected_changes = {change["data_row"]: change for change in expected.changes}
+require(len(expected_changes) == len(expected.changes) == len(log.rows) == 453,
+        "Change log does not have exactly one entry per changed record")
+expected_log_hashes = {
+    repository_relative(p): baseline[repository_relative(p)]
+    for p in [*repair["input_paths"](source).values(), repair_path]
+}
+seen = set()
+zero_counts = Counter()
+for entry in log.rows:
+    row_n = int(entry["data_row"])
+    require(row_n not in seen and row_n in changed, "Duplicate or unrelated change-log data_row")
+    seen.add(row_n)
+    wanted = expected_changes[row_n]
+    for field, value in wanted.items():
+        require(entry[field] == str(value), f"Change-log {field} differs at data row {row_n}")
+    require(json.loads(entry["input_sha256"]) == expected_log_hashes,
+            f"Change-log input hashes differ at data row {row_n}")
+    zero_counts[int(entry["zero_solvent_position"])] += 1
+require(seen == set(changed), "Change-log entries and changed record positions differ")
+
+second = repair["repair_rows"](raw.rows, saved.rows, compounds.rows)
+require(not second.changes and second.rows == saved.rows, "Second pass changes the saved records")
+original_reviews = [i for i in original_issues if i["severity"] == "REVIEW"]
+saved_reviews = [i for i in saved_issues if i["severity"] == "REVIEW"]
+require(original_reviews == saved_reviews, "Human-review findings changed")
+require({i["check"] for i in saved_reviews} == {"UNIT_SOURCE_REVIEW", "REPEATED_CONDITIONS_REVIEW"},
+        "Expected unresolved review items are missing")
+require(original_candidates == saved_candidates, "Repeated-condition candidate records changed")
+require(len(saved_candidates) == 18 and len({r["group"] for r in saved_candidates}) == 9,
+        "Nine repeated-condition groups / 18 raw rows were not retained")
+after_hashes = {p: sha256(Path(p)) for p in baseline}
+require(after_hashes == baseline, "An input, existing script, test, or prior report was modified")
+require(sha256(saved_path) == saved_hash_before and sha256(log_path) == log_hash_before,
+        "A saved output changed during the disk audit")
+
+print(json.dumps({
+    "status": "ALL REQUIRED CHECKS PASS",
+    "saved_csv_records": len(saved.rows),
+    "original_structural_errors": sum(original_errors.values()),
+    "saved_file_structural_errors": sum(saved_errors.values()),
+    "changed_records": len(changed),
+    "only_changed_column": "cmp_ids_solvent",
+    "change_log_entries": len(log.rows),
+    "second_pass_changes": len(second.changes),
+    "repeated_condition_groups": len({r["group"] for r in saved_candidates}),
+    "candidate_raw_records": len(saved_candidates),
+    "personal_absolute_paths": 0,
+    "saved_csv_sha256": saved_hash_before,
+    "change_log_sha256": log_hash_before,
+    "validation_summary_sha256": sha256(summary_path),
+}, indent=2))
+'@ | py -B -

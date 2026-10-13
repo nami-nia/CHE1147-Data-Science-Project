@@ -1,0 +1,5 @@
+column,data_type,missing_count,missing_percent,unique_values
+compound_id,int64,0,0.0,169
+name,str,0,0.0,169
+smiles,str,0,0.0,169
+salt,int64,0,0.0,2
