@@ -1,0 +1,139 @@
+SAVED ID-REPAIRED AND EXACT-DUPLICATE-REMOVED DATASET VALIDATION
+Status: ALL REQUIRED SAVED-FILE CHECKS PASS; unresolved source review remains
+Run UTC: 2026-10-13T23:34:48+00:00
+
+PROJECT DECISION
+Our project's keep-first exact-row policy compares parsed CSV strings across all eight columns, including value.
+Exact duplicate across the eight dataset columns; first occurrence retained.
+First means the earliest occurrence in the ID-repaired input order; no sorting or experimental ranking.
+This policy does not establish that the original researchers measured an experiment only once.
+No rounding, similarity tolerance, component normalization, averaging, unit conversion, or further ID repair was applied.
+CSV quoting is reserialized; retained cell strings and their relative order are unchanged.
+
+INPUT IDENTITY AND MAPPING
+Cleaning input: data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv
+Input and Step 3 change-log hashes verified against Step 3 OUTPUT SHA256 evidence.
+Every input record checked against its order-preserved raw counterpart for target, temperature, drug, and solvent/fraction identities.
+Raw Labels are verified source fields, distinct from both old and new row positions.
+
+SAVED-FILE CHECKS (CSV FILES READ BACK FROM DISK)
+Input records: 27,166
+Exact duplicate groups in input: 9
+records: 27,157
+columns: 8
+exact_duplicate_groups: 0
+additional_exact_occurrences: 0
+repeated_condition_groups: 0
+repeated_condition_records: 0
+same_solubility_condition_groups: 0
+different_solubility_condition_groups: 0
+mapping_records: 27,166
+removed_records: 9
+retained_mappings: 27,157
+removed_mappings: 9
+structural_errors: 0
+solvent_length_mismatches: 0
+second_pass_removals: 0
+Original eight columns and column order: PASS
+Retained cells identical to corresponding ID-repaired input cells: PASS
+Retained relative order and first-occurrence policy: PASS
+Mapping covers every input row/index and every output row/index exactly once: PASS
+Removed mappings have empty new_data_row and new_index: PASS
+Each removed occurrence exactly matches its first retained counterpart in the saved output: PASS
+All prior solvent-ID repairs in retained records preserved: PASS
+Unchanged Step 2 checks reused with mapping-selected raw rows; no errors suppressed.
+The processed loader read the saved dataset directly; only raw selection was adapted in memory.
+Exact duplicates and repeated conditions recalculated from saved output cells, not the full raw table's old candidate report.
+Condition keys pair IDs with fractions, ignore only exact zero fractions, and include temperature/property/unit; value is evaluated afterward.
+No shortened-output positional comparison with the full raw table was performed.
+
+REMOVED -> RETAINED RAW LABELS
+7995 -> 7905 (old rows 7996 -> 7906; retained new row 7906)
+7996 -> 7906 (old rows 7997 -> 7907; retained new row 7907)
+7997 -> 7907 (old rows 7998 -> 7908; retained new row 7908)
+7998 -> 7908 (old rows 7999 -> 7909; retained new row 7909)
+7999 -> 7909 (old rows 8000 -> 7910; retained new row 7910)
+8000 -> 7910 (old rows 8001 -> 7911; retained new row 7911)
+8001 -> 7911 (old rows 8002 -> 7912; retained new row 7912)
+8002 -> 7912 (old rows 8003 -> 7913; retained new row 7913)
+8003 -> 7913 (old rows 8004 -> 7914; retained new row 7914)
+
+INPUT / IMPLEMENTATION SHA256
+data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv: 71ec314554c3350d3559a14d37f92e3a47263524487dc6e17556d62683ef85d5
+../chemixhub/datasets/drug-solubility/raw_data/DrugSolubilityData.csv: 25a2a4f8fbff3ed4d3a8c7df6f2d788efeaf8e893ea82917ce3cef0edcf2482b
+../chemixhub/datasets/drug-solubility/processed_data/compounds.csv: c0b9ee8687d476f88f4fdef25200bbe57c94bad0fb5fe480a5ad8f11ae71371c
+../chemixhub/datasets/drug-solubility/processed_data/croissant.json: a6638dca8ac56c9fc288c4114d0ce588cb2e1622324059d23460ccb561dd988f
+reports/data_cleaning/03_repair/03_id_mismatch_repair_validation_summary.txt: 1ad4c44f1746481124bd3bc2e5b416e039a7c8dc1a35daf8f6f897afede364cd
+reports/data_cleaning/03_repair/03_id_mismatch_change_log.csv: 4db9bd0cbc96e401d9f723738ddb326b7715c206b719dc04020cf016ae466620
+python scripts/02_validate_values.py: e55eac86655c926d3fe411af0be33526873f214b1478abbc00d39657b3ccacc5
+python scripts/03_repair_solvent_pairs.py: b99568d1f4d530268ad752aff295d9d14343952b0c17ce7eb4bc69997928a27b
+python scripts/04_remove_duplicates.py: 0902e80d2b749315a63debd54051a1c307e9d346f8cd0143b2b134b198409c8e
+tests/test_remove_duplicates.py: e3f0f7a1a6eb253c53d26e35b9a402cf745e9f604c0e58cd18866397865ac3c4
+
+OUTPUT SHA256
+data/cleaned/drug-solubility/id_mismatch_repaired_duplicate_removed_DrugSolubilityData.csv: e9c61ba221a048097901caaedcc0a428e377a9710e0a87646be46e66a223f69b
+reports/data_cleaning/04_duplicate_removal/04_duplicate_row_mapping.csv: 49c2299399292be267ac947c9efb423b9c2cda246e4329215ff3de352134f4f3
+reports/data_cleaning/04_duplicate_removal/04_duplicate_removal_log.csv: ed1e1f7a892b67a07124e5ebc208732faf1304e39464d7d36742b77976cfa33a
+The summary has no self-referential hash; its final hash is printed to the console.
+
+PROTECTED PRE-EXISTING FILES: BEFORE AND AFTER
+../chemixhub/datasets/drug-solubility/processed_data/compounds.csv: before=c0b9ee8687d476f88f4fdef25200bbe57c94bad0fb5fe480a5ad8f11ae71371c; after=c0b9ee8687d476f88f4fdef25200bbe57c94bad0fb5fe480a5ad8f11ae71371c; unchanged=YES
+../chemixhub/datasets/drug-solubility/processed_data/croissant.json: before=a6638dca8ac56c9fc288c4114d0ce588cb2e1622324059d23460ccb561dd988f; after=a6638dca8ac56c9fc288c4114d0ce588cb2e1622324059d23460ccb561dd988f; unchanged=YES
+../chemixhub/datasets/drug-solubility/processed_data/data_processing.py: before=938f1a604477dcde28ddcc720bbe1b0cfdd03f619d28b182a30bf4d231aa7b17; after=938f1a604477dcde28ddcc720bbe1b0cfdd03f619d28b182a30bf4d231aa7b17; unchanged=YES
+../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_0.safetensors: before=ac286fb62a094b96f65b5483035129d4724959a40123c7888bcb927de26af4f3; after=ac286fb62a094b96f65b5483035129d4724959a40123c7888bcb927de26af4f3; unchanged=YES
+../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_1.safetensors: before=2154642a67d12e7299b9572f10224bef3e2d4564a6d57c5a171211bd6f7c1ef9; after=2154642a67d12e7299b9572f10224bef3e2d4564a6d57c5a171211bd6f7c1ef9; unchanged=YES
+../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_2.safetensors: before=e366bdfb9a72520c934022361a5c5e1c1832689f5003c460252df07c287cd85f; after=e366bdfb9a72520c934022361a5c5e1c1832689f5003c460252df07c287cd85f; unchanged=YES
+../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_3.safetensors: before=498f9cfde2eb3978aebe719498f1063798a695e6a8f7f2063e270e5333d72cc3; after=498f9cfde2eb3978aebe719498f1063798a695e6a8f7f2063e270e5333d72cc3; unchanged=YES
+../chemixhub/datasets/drug-solubility/processed_data/log_solubility_splits/kfold_split_4.safetensors: before=a1609141f4d869eddbc012a1049e49b702baecb7566a8453e8f82e4fbafb67eb; after=a1609141f4d869eddbc012a1049e49b702baecb7566a8453e8f82e4fbafb67eb; unchanged=YES
+../chemixhub/datasets/drug-solubility/processed_data/processed_DrugSolubilityData.csv: before=8c3f44a5f3a688b65c89498c68928bdaa418cd975641ba1d1902a4cd636eb892; after=8c3f44a5f3a688b65c89498c68928bdaa418cd975641ba1d1902a4cd636eb892; unchanged=YES
+../chemixhub/datasets/drug-solubility/raw_data/DrugSolubilityData.csv: before=25a2a4f8fbff3ed4d3a8c7df6f2d788efeaf8e893ea82917ce3cef0edcf2482b; after=25a2a4f8fbff3ed4d3a8c7df6f2d788efeaf8e893ea82917ce3cef0edcf2482b; unchanged=YES
+Projectv1.py: before=671bd2dedd873883af5b1ab1dc3ca23c04ae7080983929a657af777cd93815bb; after=671bd2dedd873883af5b1ab1dc3ca23c04ae7080983929a657af777cd93815bb; unchanged=YES
+data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv: before=71ec314554c3350d3559a14d37f92e3a47263524487dc6e17556d62683ef85d5; after=71ec314554c3350d3559a14d37f92e3a47263524487dc6e17556d62683ef85d5; unchanged=YES
+python scripts/01_data_inspection.py: before=2aab75b0375aa06f904d6e458d7144090786ebbb9edea5c415e6d73e626d072e; after=2aab75b0375aa06f904d6e458d7144090786ebbb9edea5c415e6d73e626d072e; unchanged=YES
+python scripts/02_validate_values.py: before=e55eac86655c926d3fe411af0be33526873f214b1478abbc00d39657b3ccacc5; after=e55eac86655c926d3fe411af0be33526873f214b1478abbc00d39657b3ccacc5; unchanged=YES
+python scripts/03_repair_solvent_pairs.py: before=b99568d1f4d530268ad752aff295d9d14343952b0c17ce7eb4bc69997928a27b; after=b99568d1f4d530268ad752aff295d9d14343952b0c17ce7eb4bc69997928a27b; unchanged=YES
+python scripts/04_remove_duplicates.py: before=0902e80d2b749315a63debd54051a1c307e9d346f8cd0143b2b134b198409c8e; after=0902e80d2b749315a63debd54051a1c307e9d346f8cd0143b2b134b198409c8e; unchanged=YES
+reports/data_cleaning/01_compounds_column_report.csv: before=66a0bbdea66193857ede01885b4a41cd09bb31d3cee914c587fb7ba6b376334c; after=66a0bbdea66193857ede01885b4a41cd09bb31d3cee914c587fb7ba6b376334c; unchanged=YES
+reports/data_cleaning/01_solubility_column_report.csv: before=1024adea8e181007bcc1b1efc79426e006827b4484b349f17f7f09faa11dfe01; after=1024adea8e181007bcc1b1efc79426e006827b4484b349f17f7f09faa11dfe01; unchanged=YES
+reports/data_cleaning/02_validation/02_duplicate_candidates.csv: before=18df56bf47b6e25b7b2fcf5b7af3648c0cd0308f740583b99d6600a02035674b; after=18df56bf47b6e25b7b2fcf5b7af3648c0cd0308f740583b99d6600a02035674b; unchanged=YES
+reports/data_cleaning/02_validation/02_validation_issues.csv: before=7bb1cd0d334e02f9c5f3c41de24faa9aae49718fea73880f32f4004df7030d5f; after=7bb1cd0d334e02f9c5f3c41de24faa9aae49718fea73880f32f4004df7030d5f; unchanged=YES
+reports/data_cleaning/02_validation/02_validation_summary.txt: before=3d9833e99d444dc9a3269bd983abd3eba88c946cd2b8c87ac5952a83c50b6386; after=3d9833e99d444dc9a3269bd983abd3eba88c946cd2b8c87ac5952a83c50b6386; unchanged=YES
+reports/data_cleaning/03_repair/03_id_mismatch_change_log.csv: before=4db9bd0cbc96e401d9f723738ddb326b7715c206b719dc04020cf016ae466620; after=4db9bd0cbc96e401d9f723738ddb326b7715c206b719dc04020cf016ae466620; unchanged=YES
+reports/data_cleaning/03_repair/03_id_mismatch_repair_validation_summary.txt: before=1ad4c44f1746481124bd3bc2e5b416e039a7c8dc1a35daf8f6f897afede364cd; after=1ad4c44f1746481124bd3bc2e5b416e039a7c8dc1a35daf8f6f897afede364cd; unchanged=YES
+tests/test_remove_duplicates.py: before=e3f0f7a1a6eb253c53d26e35b9a402cf745e9f604c0e58cd18866397865ac3c4; after=e3f0f7a1a6eb253c53d26e35b9a402cf745e9f604c0e58cd18866397865ac3c4; unchanged=YES
+tests/test_repair_solvent_pairs.py: before=7bdeeac52cb400a40a8b39d0ebcbde5845772dbd6f7011f4dd4dfb16959fe827; after=7bdeeac52cb400a40a8b39d0ebcbde5845772dbd6f7011f4dd4dfb16959fe827; unchanged=YES
+
+UNRESOLVED LIMITATIONS
+UNIT_SOURCE_REVIEW: Observed unit labels: ['g/L']. Logarithm/concentration definitions require source review; no conversion performed. Croissant description: Dataset of drug solubility values (e.g., g/100g solvent) measured in various binary or ternary solvent mixtures at different temperatures.
+Chemical-structure validation is outside this task; no structures or compound references changed.
+Experimental measurement origin remains unresolved; exact table equality is not proof of experimental reuse.
+Existing train/validation/test split files were not applied, modified, regenerated, or remapped.
+Their positional indices cannot be reused unchanged after deletion and require a separate reviewed decision.
+Raw prediction columns and train/test assignments are unchanged; tracking is in separate mapping/log files.
+The dataset is not described as fully cleaned.
+
+REPRODUCTION (FROM THE GROUP REPOSITORY ROOT)
+py -B -m unittest discover -s tests -p "test_remove_duplicates.py" -v
+py -B "python scripts/04_remove_duplicates.py" --input-csv data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv --dataset-dir ../chemixhub/datasets/drug-solubility --step3-summary reports/data_cleaning/03_repair/03_id_mismatch_repair_validation_summary.txt --step3-log reports/data_cleaning/03_repair/03_id_mismatch_change_log.csv --validator "python scripts/02_validate_values.py" --repair-script "python scripts/03_repair_solvent_pairs.py" --dry-run
+Exact save command used:
+py -B "python scripts/04_remove_duplicates.py" --input-csv data/cleaned/drug-solubility/id_mismatch_repaired_DrugSolubilityData.csv --dataset-dir ../chemixhub/datasets/drug-solubility --output-csv data/cleaned/drug-solubility/id_mismatch_repaired_duplicate_removed_DrugSolubilityData.csv --row-mapping reports/data_cleaning/04_duplicate_removal/04_duplicate_row_mapping.csv --removal-log reports/data_cleaning/04_duplicate_removal/04_duplicate_removal_log.csv --validation-summary reports/data_cleaning/04_duplicate_removal/04_duplicate_removal_validation_summary.txt
+Save commands refuse existing outputs; use four new destinations to repeat a save.
+
+OUTPUT LOCATIONS
+data/cleaned/drug-solubility/id_mismatch_repaired_duplicate_removed_DrugSolubilityData.csv
+reports/data_cleaning/04_duplicate_removal/04_duplicate_row_mapping.csv
+reports/data_cleaning/04_duplicate_removal/04_duplicate_removal_log.csv
+reports/data_cleaning/04_duplicate_removal/04_duplicate_removal_validation_summary.txt
+
+WORDING-ONLY AMENDMENT (2026-10-13, America/Toronto)
+The original Run UTC, findings, counts, and all preceding hash entries are unchanged.
+Preceding implementation hashes and protected-file before/after statements describe the original validation run; they are historical evidence, not current edited-file hashes.
+Only documentation, displayed headings, and diagnostic wording changed. Filenames, paths, 04_ prefixes, and cleaning/validation behavior are unchanged.
+CURRENT EDITED-FILE SHA256 (SEPARATE FROM ORIGINAL VALIDATION)
+python scripts/04_remove_duplicates.py: 97bc5978d4e50f3941be00ef2011c70e648902659a9d2db805f4d545f7fa8c1c
+tests/test_remove_duplicates.py: d1b86f931970afb98ecc4badeccc65759fd3d68d5a13a07a2b16526227590225
+Tests rerun after the wording edits: 26 tests passed in 3.284 seconds (OK).
+Test command: py -B -m unittest discover -s tests -p "test_remove_duplicates.py" -v
+The rerun used only temporary synthetic fixtures outside the repository; they were removed afterward.
+No actual-data cleaning, dataset validation, or report regeneration was rerun. Datasets, row mapping, and removal log remain unchanged.
+Original summary SHA256 before this wording amendment: 618200ba3f2d0d6678c763e3fddb583b61853b8846ba3e4503541ee819fa0108

@@ -1,0 +1,10 @@
+duplicate_group,removed_original_data_row,removed_original_index,removed_raw_label,retained_original_data_row,retained_original_index,retained_raw_label,retained_new_data_row,retained_new_index,reason
+exact_duplicate_001,7996,7995,7995,7906,7905,7905,7906,7905,Exact duplicate across the eight dataset columns; first occurrence retained.
+exact_duplicate_002,7997,7996,7996,7907,7906,7906,7907,7906,Exact duplicate across the eight dataset columns; first occurrence retained.
+exact_duplicate_003,7998,7997,7997,7908,7907,7907,7908,7907,Exact duplicate across the eight dataset columns; first occurrence retained.
+exact_duplicate_004,7999,7998,7998,7909,7908,7908,7909,7908,Exact duplicate across the eight dataset columns; first occurrence retained.
+exact_duplicate_005,8000,7999,7999,7910,7909,7909,7910,7909,Exact duplicate across the eight dataset columns; first occurrence retained.
+exact_duplicate_006,8001,8000,8000,7911,7910,7910,7911,7910,Exact duplicate across the eight dataset columns; first occurrence retained.
+exact_duplicate_007,8002,8001,8001,7912,7911,7911,7912,7911,Exact duplicate across the eight dataset columns; first occurrence retained.
+exact_duplicate_008,8003,8002,8002,7913,7912,7912,7913,7912,Exact duplicate across the eight dataset columns; first occurrence retained.
+exact_duplicate_009,8004,8003,8003,7914,7913,7913,7914,7913,Exact duplicate across the eight dataset columns; first occurrence retained.
