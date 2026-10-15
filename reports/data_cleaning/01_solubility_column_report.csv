@@ -1,9 +1,0 @@
-column,data_type,missing_count,missing_percent,unique_values
-value,float64,0,0.0,19076
-"Temperature, K",float64,0,0.0,205
-property,str,0,0.0,1
-unit,str,0,0.0,1
-cmp_ids_solvent,str,0,0.0,166
-cmp_mole_fractions_solvent,str,0,0.0,1064
-cmp_ids_drug,str,0,0.0,125
-cmp_mole_fractions_drug,str,0,0.0,1

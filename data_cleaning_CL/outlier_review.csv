@@ -1,0 +1,2 @@
+original_row_index,value,"Temperature, K",property,unit,cmp_ids_solvent,cmp_mole_fractions_solvent,cmp_ids_drug,cmp_mole_fractions_drug,drug,solvent_pair,LogS_iqr_flag,Temperature_iqr_flag,decision,reason
+9336,-1.3493,273.15,Log solubility,g/L,"[145.0, 130.0]","[0.054909, 0.945091]",[43],[1.0],Posaconazole,"(130, 145)",True,False,retain,Consistent with the surrounding composition-solubility trend; insufficient evidence to classify the observation as an error.
