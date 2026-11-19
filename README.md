@@ -102,7 +102,7 @@ Cell numbers below refer to positions in the notebook, not execution counters.
 | 25–27 | Split cleaned observations and construct 27 numeric features. |
 | 28–34 | Train linear regression, tune Ridge and LASSO using five-fold cross-validation, and compare their test metrics. |
 | 35–36 | Load saved XGBoost/Random Forest results or run their hyperparameter searches when caches are absent. |
-| 37–38 | Evaluate the tree models on the test set and regenerate the five-model comparison table and PNG. |
+| 37–39 | Evaluate the tree models on the test set and regenerate the five-model comparison table and two-panel MAE/RMSE bar chart. |
 
 For the pinned inputs, the saved cleaning run starts with **27,166 observations**, repairs **453 list-length mismatches**, expands **2,490 single-solvent representations**, and removes **9 duplicates**, leaving **27,157 observations**. The run flags **311 observations** using IQR rules and retains all of them. An IQR flag alone does not establish an erroneous measurement; rows are removed only when explicitly entered in `confirmed_outlier_errors` with supporting evidence. That dictionary is currently empty.
 
@@ -140,6 +140,8 @@ Running the final notebook from top to bottom regenerates these outputs in `data
 
 | Output | Generator | Contents |
 | --- | --- | --- |
+| `log_solubility_distribution.png` | Cell 8 | Distribution of reported log solubility before cleaning. |
+| `temperature_distribution.png` | Cell 9 | Per-drug temperature boxplots before cleaning, arranged in three panels. |
 | `cleaned_drug_solubility.csv` | Cell 20 | Repaired, deduplicated observations after the outlier policy. |
 | `outlier_policy_report.csv` | Cell 20 | Flagged observations, original row indices, flags, and retention/removal decisions. Default retained rows currently have blank reason/evidence fields. |
 | `temperature_vs_log_solubility.png` | Cell 21 | Cleaned-data temperature versus reported log solubility. |
@@ -149,10 +151,13 @@ Running the final notebook from top to bottom regenerates these outputs in `data
 | `xgboost_tuning_results_cleaned.joblib` | Cell 35, when cache is absent | Selected fitted XGBoost pipeline and search/training summary. |
 | `random_forest_tuning_results_cleaned.joblib` | Cell 36, when cache is absent | Selected fitted Random Forest pipeline and search/training summary. |
 | `test_model_comparison.png` | Cell 38 | Five-model test MAE/RMSE comparison table. |
+| `test_mae_rmse_comparison.png` | Cell 39 | Two-panel test MAE/RMSE bar chart saved at 300 dpi, with percentage reductions relative to Linear Regression and XGBoost highlighted as the best-performing model. |
 
-The histogram and per-drug temperature boxplots in cells 8–9 are displayed in the notebook but are not exported as separate image files. Other diagnostic tables, search summaries, and metrics are also displayed in notebook outputs. Save the executed notebook to retain them.
+The bar chart uses Linear Regression as the baseline and displays each model's error value and percentage reduction: `(Baseline Error − Model Error) / Baseline Error × 100`. Negative percentages indicate higher error than the baseline. Both panels use the same vertical scale.
 
-Use regenerated outputs to report results after any code or input change. Exact strip-plot pixel positions may vary because its random jitter is generated before the notebook sets the global NumPy seed. Verification completed in a fresh Python 3.14.7 environment on Windows installed from `requirements.txt`: `pip check` passed and all 38 notebook cells executed successfully, saving regenerated results. The run loaded the existing XGBoost and Random Forest caches; their full hyperparameter searches were not repeated.
+Other diagnostic tables, search summaries, and metrics are displayed in notebook outputs. Save the executed notebook to retain them.
+
+Use regenerated outputs to report results after any code or input change. Exact strip-plot pixel positions may vary because its random jitter is generated before the notebook sets the global NumPy seed. An earlier verification of the 38-cell notebook completed in a fresh Python 3.14.7 environment on Windows installed from `requirements.txt`: `pip check` passed and all 38 cells executed successfully, saving regenerated results. That run loaded the existing XGBoost and Random Forest caches; their full hyperparameter searches were not repeated. The current notebook contains 39 cells; this earlier verification does not establish a successful fresh run of the current version.
 
 ## Troubleshooting
 
