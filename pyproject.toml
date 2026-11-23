@@ -1,0 +1,32 @@
+[project]
+name = "data-cleaning-chenyue"
+version = "0.1.0"
+description = "Clean CheMixHub drug-solubility data and compare regression models for pure solvents and binary mixtures."
+readme = "README.md"
+keywords = ["che1147", "drug-solubility", "chemixhub", "regression"]
+authors = [
+    { name = "chenyue-lu", email = "chenyuelu04@outlook.com" }
+]
+# .python-version selects the exact interpreter used for the saved notebook.
+requires-python = ">=3.14.7,<3.15"
+
+# Keep these pins aligned with requirements.txt for the saved model caches.
+dependencies = [
+    "numpy==2.5.4",
+    "pandas==3.0.6",
+    "scipy==1.18.1",
+    "matplotlib==3.11.2",
+    "seaborn==0.13.2",
+    "scikit-learn==1.9.1",
+    "xgboost==3.4.1",
+    "joblib==1.6.0",
+    "rdkit==2026.9.2",
+    "ipykernel==7.4.0",
+]
+
+[project.urls]
+Repository = "https://github.com/nami-nia/CHE1147-Data-Science-Project"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"

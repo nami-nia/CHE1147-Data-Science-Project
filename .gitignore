@@ -1,0 +1,42 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.pyd
+build/
+dist/
+wheels/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+.venv-*/
+venv/
+env/
+
+# Notebook checkpoints and local tool caches
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local configuration and operating-system files
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# External CheMixHub checkout (downloaded separately; not project source).
+/Data/chemixhub/
+
+# Local model backups created when forcing the notebook to retrain.
+/notebook_and_results/results/*.joblib.bak*
+
+# Keep uv.lock and notebook_and_results/ figures, tables, and model caches versioned.
+# Model caches are handled by .gitattributes, not ignored here.

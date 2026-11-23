@@ -1,13 +1,24 @@
 # Python 3.14.7; package versions captured from the project-level .venv.
+# Keep these pins aligned with [project].dependencies in pyproject.toml.
+# These are direct environment dependencies, not a full transitive lockfile.
+# Use the captured versions when loading the saved .joblib model caches.
+
+# Numerical computing and tabular data.
 numpy==2.5.4
 pandas==3.0.6
+scipy==1.18.1
+
+# Plotting.
 matplotlib==3.11.2
 seaborn==0.13.2
-scipy==1.18.1
+
+# Regression models and model-cache serialization.
 scikit-learn==1.9.1
-joblib==1.6.0
-rdkit==2026.9.2
 xgboost==3.4.1
+joblib==1.6.0
+
+# Molecular descriptors calculated from SMILES.
+rdkit==2026.9.2
 
 # Notebook kernel for VS Code or an existing Jupyter frontend.
 ipykernel==7.4.0
