@@ -184,6 +184,20 @@ Other diagnostic tables, search summaries, and metrics are displayed in notebook
 
 Use regenerated outputs to report results after any code or input change. Exact strip-plot pixel positions may vary because its random jitter is generated before the notebook sets the global NumPy seed. The current notebook contains 38 code cells with saved execution counts 1–38, saved outputs through the parity plots, and no saved error outputs; its kernel metadata reports Python 3.14.7. Saved outputs do not establish a fresh environment verification or show whether the tree-model searches ran or their caches were loaded.
 
+## Limitations and Future Work
+
+### Limitations
+
+- **Uneven data coverage:** Low-solubility drugs are underrepresented in the dataset, which may limit prediction reliability for these compounds and generalization across the full solubility range.
+- **Incomplete molecular representation:** The drug and solvent descriptors capture only part of the chemistry relevant to solubility. Structural characteristics not represented in the dataset may affect prediction accuracy.
+
+### Future Work
+
+- Expand the dataset to improve coverage of low-solubility drugs and reduce imbalance.
+- Evaluate model performance separately for low-solubility compounds and compare it with overall performance.
+- Explore additional drug and solvent descriptors relevant to solubility.
+- Assess prediction uncertainty and the stability of performance estimates using methods such as bootstrapping.
+
 ## Troubleshooting
 
 - **Missing CSVs:** check the project's `Data/chemixhub/` folder, the pinned revision, and the three paths listed in cell 1. Do not substitute the final cleaned output for the original processed input.
