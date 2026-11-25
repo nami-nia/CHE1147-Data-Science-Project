@@ -1,32 +1,30 @@
 # CHE1147: Drug Solubility Prediction
 
+## Project overview
+
 This project cleans and analyzes drug-solubility measurements from CheMixHub and compares regression models for predicting reported log solubility in pure solvents and binary solvent mixtures. Inputs combine temperature, solvent mole fractions, and molecular descriptors calculated from drug and solvent SMILES using RDKit.
 
 The main workflow is [project_notebook.ipynb](notebook_and_results/project_notebook.ipynb). It includes preprocessing, exploratory analysis, feature generation, model training and tuning, evaluation, and figure/table generation. It is the single notebook needed to run the project and contains 38 code cells.
 
 The project repository is [nami-nia/CHE1147-Data-Science-Project](https://github.com/nami-nia/CHE1147-Data-Science-Project), on the `chenyue-work` branch. Use `project_code_results/` as the working directory for environment setup and notebook execution.
 
-## Repository layout
+## Results summary
 
-```text
-project_code_results/
-├── README.md
-├── requirements.txt
-├── .gitattributes
-├── .gitignore
-├── .python-version
-├── pyproject.toml
-├── src/                        # Package scaffold; analysis runs in the notebook
-├── Data/
-│   └── chemixhub/               # External data checkout (Git-ignored)
-└── notebook_and_results/
-    ├── project_notebook.ipynb   # Main end-to-end workflow
-    └── results/                # Versioned cleaned data, reports, and figures
-```
+The saved notebook run uses **27,157 cleaned observations**, with an 80/20 split into **21,725 training** and **5,432 held-out test** observations. The table below reproduces the saved test-set metrics; MAE and RMSE are measured on the reported log-solubility scale, and lower values indicate better predictions.
 
-The external input CSVs are obtained separately from CheMixHub. The `Data/chemixhub/` checkout, virtual environments such as `.venv/` and `.venv-check/`, and notebook checkpoints are ignored. The main notebook and generated CSVs/PNGs remain versioned.
+| Model | Test MAE | Test RMSE |
+| --- | --- | --- |
+| Linear Regression | 0.67259 | 0.86076 |
+| Ridge Regression | 0.67260 | 0.86077 |
+| LASSO Regression | 0.67260 | 0.86077 |
+| **XGBoost** | **0.02683** | **0.04394** |
+| Random Forest | 0.04133 | 0.06483 |
 
-## Get the project and input data
+XGBoost achieves the lowest test errors among the five models, reducing MAE by approximately **96.0%** and RMSE by **94.9%** relative to Linear Regression. Because the split is at the observation level, these results do not establish generalization to entirely unseen drugs or solvent systems.
+
+## Quick start
+
+### Get the project and input data
 
 You need Git, Python, and a notebook frontend such as VS Code with its Python and Jupyter extensions.
 
@@ -71,7 +69,7 @@ All three files are included in the pinned upstream revision. No upstream prepro
 
 Dataset provenance is recorded in CheMixHub's [dataset documentation](https://github.com/chemcognition-lab/chemixhub/blob/356c16b99e38b56a91b5219d33db410fc372d538/datasets/README.md) and [drug-solubility metadata](https://github.com/chemcognition-lab/chemixhub/blob/356c16b99e38b56a91b5219d33db410fc372d538/datasets/drug-solubility/processed_data/croissant.json). The metadata attributes the data to Bao et al. (2024), *Towards the prediction of drug solubility in binary solvent mixtures at various temperatures using machine learning*, and specifies CC BY 4.0 for the dataset. See the upstream metadata for attribution and reuse details.
 
-## Recreate the Python environment
+### Recreate the Python environment
 
 Use **Python 3.14.7**, the version selected by [.python-version](.python-version) and recorded in the saved notebook. [pyproject.toml](pyproject.toml) permits Python `>=3.14.7,<3.15` and declares the same ten pinned dependencies as [requirements.txt](requirements.txt): the scientific libraries, RDKit, scikit-learn, XGBoost, joblib, and an IPython kernel. These versions match the existing Windows environment. A fresh installation and execution on other platforms have not been verified.
 
@@ -105,9 +103,31 @@ In VS Code, open the project folder and the final notebook, then select the newl
 
 Then select **CHE1147** in that frontend. Installing packages in a different environment does not make them available to the selected notebook kernel.
 
-## Run preprocessing, training, and analysis
+### Run preprocessing, training, and analysis
 
 Open `notebook_and_results/project_notebook.ipynb`, restart its kernel, and run all cells from top to bottom. Use the project root (`project_code_results/`) or `notebook_and_results/` as the notebook working directory. The notebook discovers its folder, checks the external inputs, creates `notebook_and_results/results/` when needed, and overwrites generated CSVs and PNGs there. Cell 1 resolves `Data/chemixhub/` relative to the project root.
+
+## Repository layout
+
+```text
+project_code_results/
+├── README.md
+├── requirements.txt
+├── .gitattributes
+├── .gitignore
+├── .python-version
+├── pyproject.toml
+├── src/                        # Package scaffold; analysis runs in the notebook
+├── Data/
+│   └── chemixhub/               # External data checkout (Git-ignored)
+└── notebook_and_results/
+    ├── project_notebook.ipynb   # Main end-to-end workflow
+    └── results/                # Versioned cleaned data, reports, and figures
+```
+
+The external input CSVs are obtained separately from CheMixHub. The `Data/chemixhub/` checkout, virtual environments such as `.venv/` and `.venv-check/`, and notebook checkpoints are ignored. The main notebook and generated CSVs/PNGs remain versioned.
+
+## Methodology
 
 Cell numbers below refer to positions in the notebook, not execution counters.
 
@@ -135,9 +155,9 @@ The split uses 80% training and 20% test observations with seed `1`, stratified 
 
 XGBoost evaluates 200 randomized parameter combinations with five-fold CV; Random Forest evaluates 100 combinations with ten-fold CV. Each search therefore performs 1,000 CV fits plus the final refit. Both use seed `42`. Full tuning can take substantial time; no fixed runtime is assumed. Ridge and LASSO are fitted and tuned on every full run.
 
-## Regenerate and inspect results
+## Generated outputs
 
-Running the complete project notebook generates two `.joblib` files containing the trained XGBoost and Random Forest models. These files are intentionally Git-ignored and excluded from the repository because they can be reproduced by rerunning the notebook.
+The complete project notebook saves the trained XGBoost and Random Forest models in two `.joblib` files. It trains and tunes each model only when its file is absent; otherwise, it loads the existing copy. These files are intentionally Git-ignored and excluded from the repository because they can be reproduced by rerunning the notebook.
 
 Running the final notebook from top to bottom regenerates these CSV and PNG outputs in `notebook_and_results/results/`:
 
@@ -161,7 +181,7 @@ Other diagnostic tables, search summaries, and metrics are displayed in notebook
 
 Use regenerated outputs to report results after any code or input change. Exact strip-plot pixel positions may vary because its random jitter is generated before the notebook sets the global NumPy seed. The current notebook contains 38 code cells with saved execution counts 1–38, saved outputs through the parity plots, and no saved error outputs; its kernel metadata reports Python 3.14.7. Saved outputs do not establish a fresh environment verification or confirm that the tree-model searches ran.
 
-## Limitations and Future Work
+## Limitations and future work
 
 ### Limitations
 
