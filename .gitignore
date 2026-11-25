@@ -35,8 +35,9 @@ Thumbs.db
 # External CheMixHub checkout (downloaded separately; not project source).
 /Data/chemixhub/
 
-# Local model backups created when forcing the notebook to retrain.
+# Generated model caches and local backups.
+/notebook_and_results/results/random_forest_tuning_results_cleaned.joblib
+/notebook_and_results/results/xgboost_tuning_results_cleaned.joblib
 /notebook_and_results/results/*.joblib.bak*
 
-# Keep uv.lock and notebook_and_results/ figures, tables, and model caches versioned.
-# Model caches are handled by .gitattributes, not ignored here.
+# Keep uv.lock and notebook_and_results/ figures and tables versioned.

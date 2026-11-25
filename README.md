@@ -21,19 +21,18 @@ project_code_results/
 │   └── chemixhub/               # External data checkout (Git-ignored)
 └── notebook_and_results/
     ├── project_notebook.ipynb   # Main end-to-end workflow
-    └── results/                # Cleaned data, reports, figures, models
+    └── results/                # Versioned cleaned data, reports, and figures
 ```
 
-The external input CSVs are obtained separately from CheMixHub. The `Data/chemixhub/` checkout, virtual environments such as `.venv/` and `.venv-check/`, notebook checkpoints, and model-cache backups ending in `.joblib.bak` are ignored. The main notebook, generated CSVs/PNGs, and active `.joblib` caches remain versioned; model caches use Git LFS.
+The external input CSVs are obtained separately from CheMixHub. The `Data/chemixhub/` checkout, virtual environments such as `.venv/` and `.venv-check/`, and notebook checkpoints are ignored. The main notebook and generated CSVs/PNGs remain versioned.
 
 ## Get the project and input data
 
-You need Git, Python, and a notebook frontend such as VS Code with its Python and Jupyter extensions. Install Git LFS if you want to download the saved model caches.
+You need Git, Python, and a notebook frontend such as VS Code with its Python and Jupyter extensions.
 
-Run the following from the directory where you want to place the project. The CheMixHub checkout goes inside the project's `Data/` folder. The project clone uses the `chenyue-work` branch. With Git LFS installed, cloning can download approximately 1.59 GB of model caches.
+Run the following from the directory where you want to place the project. The CheMixHub checkout goes inside the project's `Data/` folder. The project clone uses the `chenyue-work` branch.
 
 ```powershell
-git lfs install
 git clone --branch chenyue-work https://github.com/nami-nia/CHE1147-Data-Science-Project.git project_code_results
 
 New-Item -ItemType Directory -Force -Path project_code_results/Data | Out-Null
@@ -120,7 +119,7 @@ Cell numbers below refer to positions in the notebook, not execution counters.
 | 21–24 | Generate cleaned-data plots and Pearson/Spearman correlation heatmaps for binary mixtures. |
 | 25–27 | Split cleaned observations and construct 27 numeric features. |
 | 28–32 | Train linear regression, define and tune Ridge and LASSO using five-fold cross-validation, and compare their test metrics. |
-| 33–34 | Load saved XGBoost/Random Forest results or run their hyperparameter searches when caches are absent. |
+| 33–34 | Train and tune XGBoost and Random Forest. |
 | 35–37 | Evaluate the tree models on the test set and regenerate the five-model comparison table and two-panel MAE/RMSE bar chart. |
 | 38 | Generate observed-versus-predicted parity plots for all five models on the held-out test set. |
 
@@ -132,35 +131,15 @@ The target is the existing reported log-solubility `value`; the notebook does no
 
 The split uses 80% training and 20% test observations with seed `1`, stratified using an indicator for target values above the dataset's 90th percentile. With the pinned inputs, this yields **21,725 training** and **5,432 test** observations. Hyperparameter selection uses the training set; MAE and RMSE are reported in the target's log-solubility scale. This is an observation-level split, so the test results do not establish generalization to entirely unseen drugs or solvent systems. The notebook creates its own split rather than using upstream split files or raw-data training labels.
 
-### Use the saved model caches
-
-The notebook loads the two `.joblib` caches from `notebook_and_results/results/`. The `.gitattributes` rules cover `.joblib` files in both the current and legacy folders. If your checkout contains Git LFS pointers, download the available LFS objects from the project root:
-
-```powershell
-git lfs install
-git lfs pull
-```
-
-If the downloaded caches are under the legacy `data_cleaning_CL/results/` folder, copy the actual model files into `notebook_and_results/results/` before running the notebook. The notebook does not load caches from the legacy folder.
-
-`random_forest_tuning_results_cleaned.joblib` is approximately 1.57 GB; `xgboost_tuning_results_cleaned.joblib` is approximately 19 MB. Allow memory for loading the models in addition to their file sizes. Run the whole notebook even when using caches: preprocessing, feature generation, linear-model fitting, evaluation, and plotting still run. Each cache contains the fitted pipeline, selected hyperparameters, and training/CV metrics; test metrics are calculated in cell 35.
-
-The current code checks cache existence and does not validate whether it matches changed data, features, or split settings. Use the captured package versions for loading saved models, and retrain after changing those settings.
-
-### Retrain XGBoost and Random Forest
-
-Before running the notebook, move either or both cache files outside `results/`, or append `.bak` to the complete filename (for example, `random_forest_tuning_results_cleaned.joblib.bak`). These backup files are ignored by Git:
-
-- `notebook_and_results/results/xgboost_tuning_results_cleaned.joblib`
-- `notebook_and_results/results/random_forest_tuning_results_cleaned.joblib`
-
-Restart the kernel and run all cells. A missing cache triggers its search and saves a replacement under the original filename. If your checkout has LFS pointer files instead of downloaded models, move those pointers aside as well; `joblib.load()` cannot read them as models.
+### XGBoost and Random Forest tuning
 
 XGBoost evaluates 200 randomized parameter combinations with five-fold CV; Random Forest evaluates 100 combinations with ten-fold CV. Each search therefore performs 1,000 CV fits plus the final refit. Both use seed `42`. Full tuning can take substantial time; no fixed runtime is assumed. Ridge and LASSO are fitted and tuned on every full run.
 
 ## Regenerate and inspect results
 
-Running the final notebook from top to bottom regenerates these outputs in `notebook_and_results/results/` (model caches are written only when absent):
+Running the complete project notebook generates two `.joblib` files containing the trained XGBoost and Random Forest models. These files are intentionally Git-ignored and excluded from the repository because they can be reproduced by rerunning the notebook.
+
+Running the final notebook from top to bottom regenerates these CSV and PNG outputs in `notebook_and_results/results/`:
 
 | Output | Generator | Contents |
 | --- | --- | --- |
@@ -172,8 +151,6 @@ Running the final notebook from top to bottom regenerates these outputs in `note
 | `top10_drugs_log_solubility.png` | Cell 22 | Solubility observations for the ten most common drugs. |
 | `solvent_fraction_vs_log_solubility.png` | Cell 23 | Binary-mixture solubility versus the first listed solvent's mole fraction. |
 | `binary_mixture_correlations.png` | Cell 24 | Pearson/Spearman heatmaps across all binary mixtures. |
-| `xgboost_tuning_results_cleaned.joblib` | Cell 33, when cache is absent | Selected fitted XGBoost pipeline and search/training summary. |
-| `random_forest_tuning_results_cleaned.joblib` | Cell 34, when cache is absent | Selected fitted Random Forest pipeline and search/training summary. |
 | `test_model_comparison.png` | Cell 36 | Five-model test MAE/RMSE comparison table. |
 | `test_mae_rmse_comparison.png` | Cell 37 | Two-panel test MAE/RMSE bar chart saved at 300 dpi, with percentage reductions relative to Linear Regression and XGBoost highlighted as the best-performing model. |
 | `Parity_Plots.png` | Cell 38 | Five observed-versus-predicted test-set scatterplots with a perfect-prediction reference line, shared axis limits, equal aspect ratios, and each model's MAE/RMSE; saved at 300 dpi. |
@@ -182,7 +159,7 @@ The bar chart uses Linear Regression as the baseline and displays each model's e
 
 Other diagnostic tables, search summaries, and metrics are displayed in notebook outputs. Save the executed notebook to retain them.
 
-Use regenerated outputs to report results after any code or input change. Exact strip-plot pixel positions may vary because its random jitter is generated before the notebook sets the global NumPy seed. The current notebook contains 38 code cells with saved execution counts 1–38, saved outputs through the parity plots, and no saved error outputs; its kernel metadata reports Python 3.14.7. Saved outputs do not establish a fresh environment verification or show whether the tree-model searches ran or their caches were loaded.
+Use regenerated outputs to report results after any code or input change. Exact strip-plot pixel positions may vary because its random jitter is generated before the notebook sets the global NumPy seed. The current notebook contains 38 code cells with saved execution counts 1–38, saved outputs through the parity plots, and no saved error outputs; its kernel metadata reports Python 3.14.7. Saved outputs do not establish a fresh environment verification or confirm that the tree-model searches ran.
 
 ## Limitations and Future Work
 
@@ -203,7 +180,6 @@ Use regenerated outputs to report results after any code or input change. Exact 
 - **Missing CSVs:** check the project's `Data/chemixhub/` folder, the pinned revision, and the three paths listed in cell 1. Do not substitute the final cleaned output for the original processed input.
 - **Notebook not found:** use `project_code_results/` or `notebook_and_results/` as the working directory and keep the filename `project_notebook.ipynb`.
 - **Import errors:** confirm that the notebook kernel is the environment where `requirements.txt` was installed.
-- **Python version mismatch:** use Python 3.14.7 for the saved model caches. The uv workflow reads `.python-version`; the pip workflow uses the interpreter that created `.venv/`.
-- **Model-loading errors:** check that `notebook_and_results/results/` contains actual model files rather than Git LFS pointers and that the installed package versions match the requirements. To regenerate a cache, move it aside and rerun the notebook as described above.
+- **Python version mismatch:** use Python 3.14.7 for the notebook. The uv workflow reads `.python-version`; the pip workflow uses the interpreter that created `.venv/`.
 - **Undefined variables after running a later cell:** restart the kernel and execute all preceding cells in order.
 - **`Ridge_Model` or `Lasso_Model` is not defined:** run the complete Ridge tuning cell (29) or LASSO tuning cell (31), including the pipeline definition above `GridSearchCV`, after the prerequisite cells. The current notebook defines each estimator in its own search cell.
